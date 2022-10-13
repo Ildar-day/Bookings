@@ -94,15 +94,6 @@ join flights f on f.aircraft_code = a.aircraft_code
 where f.actual_departure is not null
 group by a.aircraft_code 
 
--- Вариант с использованием окна, но почему-то выдает ошибку, что столбец flight_id должен быть в агрегатной функции:
-
-select a.model "Модель самолета", 
-	round(count(flight_id) over (partition by (f.aircraft_code)) / count(flight_id) over () :: numeric * 100) as "% от общего числа"
-from aircrafts a 
-join flights f on f.aircraft_code = a.aircraft_code 
-where f.actual_departure is not null
-group by a.aircraft_code
-
 
 -- Вопрос № 7 - Были ли города, в которые можно добраться бизнес - классом дешевле, чем эконом-классом в рамках перелета? (CTE)		
 
